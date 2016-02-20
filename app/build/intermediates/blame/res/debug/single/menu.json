@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/res/merged/debug/menu/activity_home_page_drawer.xml",
+        "source": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/res/menu/activity_home_page_drawer.xml"
+    },
+    {
+        "merged": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/res/merged/debug/menu/home_page.xml",
+        "source": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/res/menu/home_page.xml"
+    }
+]
