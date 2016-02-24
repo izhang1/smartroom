@@ -1,0 +1,58 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.izhang.smartroom.MySchedule">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="510dp"
+        android:layout_gravity="center">
+
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/myScheduleFab"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@android:drawable/ic_dialog_email"
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:layout_marginRight="@dimen/fab_margin"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            app:backgroundTint="@android:color/darker_gray" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Schedule 1"
+            android:id="@+id/myScheduleTitle"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="7:30AM -  8:00AM"
+            android:id="@+id/MyScheduleTimeText"
+            android:layout_below="@+id/myScheduleTitle"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp" />
+
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="On/Off"
+            android:id="@+id/switch1"
+            android:checked="false"
+            android:layout_alignParentTop="true"
+            android:layout_alignEnd="@+id/myScheduleFab"
+            android:layout_alignBottom="@+id/MyScheduleTimeText" />
+
+
+    </RelativeLayout>
+</FrameLayout>

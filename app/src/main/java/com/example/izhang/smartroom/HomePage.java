@@ -1,8 +1,12 @@
 package com.example.izhang.smartroom;
 
+import android.support.v4.app.Fragment;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,7 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class HomePage extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, MyDevice.OnFragmentInteractionListener, MySchedule.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,14 +27,6 @@ public class HomePage extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -40,6 +36,16 @@ public class HomePage extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        Fragment fragment = null;
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragment = new MyDevice();
+        fragmentManager.beginTransaction()
+                .replace(R.id.content_frame
+                        , fragment)
+                .commit();
+
+        setTitle("MyDevice");
     }
 
     @Override
@@ -80,10 +86,15 @@ public class HomePage extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        Fragment fragment = null;
+        FragmentManager fragmentManager = getSupportFragmentManager();
 
+        if (id == R.id.my_devices) {
+            Log.v("HomePage", "MyDevice");
+            fragment = new MyDevice();
+
+        } else if (id == R.id.my_schedule) {
+            fragment = new MySchedule();
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
@@ -92,10 +103,20 @@ public class HomePage extends AppCompatActivity
 
         } else if (id == R.id.nav_send) {
 
+        }else{
+            fragment = new MyDevice();
         }
+
+        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+        setTitle(item.getTitle());
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        return true;
+        return false;
     }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+    }
+
 }

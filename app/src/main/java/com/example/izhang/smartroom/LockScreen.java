@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -69,8 +70,6 @@ public class LockScreen extends AppCompatActivity {
         mVisible = true;
         mContentView = findViewById(R.id.fullscreen_content);
 
-
-
         mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -78,15 +77,16 @@ public class LockScreen extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
 
-        try {
-            wait(20000);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        ImageView icon = (ImageView) this.findViewById(R.id.houseIcon);
+        icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent loginIntent = new Intent(getApplicationContext(), Login.class);
+                startActivity(loginIntent);
+                finish();
+            }
+        });
 
-        Intent loginIntent = new Intent(getApplicationContext(), Login.class);
-        startActivity(loginIntent);
-        finish();
 
     }
 }
