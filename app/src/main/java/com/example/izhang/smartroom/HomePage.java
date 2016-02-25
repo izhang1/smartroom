@@ -18,7 +18,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class HomePage extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, MyDevice.OnFragmentInteractionListener, MySchedule.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, MyDevice.OnFragmentInteractionListener,
+                    MySchedule.OnFragmentInteractionListener, MyPlaces.OnFragmentInteractionListener,Setting.OnFragmentInteractionListener,
+                    MyHome.OnFragmentInteractionListener
+{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +42,7 @@ public class HomePage extends AppCompatActivity
 
         Fragment fragment = null;
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragment = new MyDevice();
+        fragment = new MyHome();
         fragmentManager.beginTransaction()
                 .replace(R.id.content_frame
                         , fragment)
@@ -89,16 +92,18 @@ public class HomePage extends AppCompatActivity
         Fragment fragment = null;
         FragmentManager fragmentManager = getSupportFragmentManager();
 
-        if (id == R.id.my_devices) {
+        if(id == R.id.my_home){
+            fragment = new MyHome();
+        }else if (id == R.id.my_devices) {
             Log.v("HomePage", "MyDevice");
             fragment = new MyDevice();
 
         } else if (id == R.id.my_schedule) {
             fragment = new MySchedule();
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
+        } else if (id == R.id.my_places) {
+            fragment = new MyPlaces();
+        } else if (id == R.id.setting) {
+            fragment = new Setting();
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
