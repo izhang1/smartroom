@@ -1,0 +1,50 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.izhang.smartroom.MyHome">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView2"
+            android:layout_marginTop="39dp"
+            android:src="@mipmap/ic_launcher"
+            android:layout_below="@+id/myHomeTitle"
+            android:layout_centerHorizontal="true"
+            android:minHeight="100dp"
+            android:minWidth="100dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Home 1"
+            android:id="@+id/myHomeTitle"
+            android:layout_marginTop="39dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:textSize="50dp" />
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/myHomeListView"
+            android:layout_below="@+id/imageView2"
+            android:layout_marginTop="107dp"
+            android:layout_alignParentStart="true"
+            android:dividerHeight="1dp"
+            android:divider="#000000"
+            android:drawSelectorOnTop="false"
+            android:background="#5cdcdcdc" />
+
+    </RelativeLayout>
+</FrameLayout>
