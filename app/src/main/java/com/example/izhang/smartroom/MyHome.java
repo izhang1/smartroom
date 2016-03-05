@@ -7,7 +7,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import java.util.ArrayList;
 
 
 /**
@@ -66,9 +69,16 @@ public class MyHome extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        ListView lv = (ListView) container.findViewById(R.id.myHomeListView);
+        View view = inflater.inflate(R.layout.fragment_my_home, container, false);
 
-        return inflater.inflate(R.layout.fragment_my_home, container, false);
+        ListView lv = (ListView) view.findViewById(R.id.myHomeListView);
+        ArrayList<String> homedata = new ArrayList();
+        homedata.add("Number of Devices :   5");
+        homedata.add("NUmber of Schedules:   3");
+        ArrayAdapter<String> homedataAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, homedata);
+        lv.setAdapter(homedataAdapter);
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
