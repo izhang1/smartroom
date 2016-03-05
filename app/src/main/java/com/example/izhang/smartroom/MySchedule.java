@@ -1,12 +1,25 @@
 package com.example.izhang.smartroom;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.Toast;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 
 /**
@@ -64,7 +77,19 @@ public class MySchedule extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_schedule, container, false);
+        View view = inflater.inflate(R.layout.fragment_my_schedule, container, false);
+
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.myScheduleFab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addNewSchedule(getActivity());
+            }
+        });
+
+
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -89,6 +114,60 @@ public class MySchedule extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    /**
+     * Creates an alert dialog to ask user for device name and connection
+     *
+     * @param fragmentActivity
+     */
+    private void addNewSchedule(final FragmentActivity fragmentActivity){
+        // Create action window to make lockcode
+        AlertDialog.Builder alert = new AlertDialog.Builder(fragmentActivity);
+        alert.setTitle("Add New Schedule");
+
+        LayoutInflater inflater = fragmentActivity.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.dialog_addschedule, null);
+        alert.setView(dialogView);
+
+        Spinner chooseDevice = (Spinner) dialogView.findViewById(R.id.deviceSpinner);
+        Spinner chooseActivity = (Spinner) dialogView.findViewById(R.id.deviceActivity);
+
+        ArrayList deviceList = new ArrayList();
+        deviceList.add("Motion Sensor 1");
+        deviceList.add("Speaker 1");
+        deviceList.add("Light 1");
+
+        ArrayAdapter deviceListAdapter = new ArrayAdapter(dialogView.getContext(),
+                android.R.layout.simple_spinner_item, deviceList);
+
+        chooseDevice.setAdapter(deviceListAdapter);
+
+
+        ArrayList deviceActivities = new ArrayList();
+        deviceActivities.add("Motion Sensor Do Something");
+        deviceActivities.add("Motion Sensor Do Something 1");
+        deviceActivities.add("Motion Sensor Do Something 2");
+
+        ArrayAdapter deviceActivityAdapter = new ArrayAdapter(dialogView.getContext(),
+                android.R.layout.simple_spinner_item, deviceActivities);
+
+        chooseActivity.setAdapter(deviceActivityAdapter);
+
+
+        alert.setPositiveButton("Schedule It", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                Toast.makeText(fragmentActivity, "Scheduled", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        alert.setNegativeButton("Cancel",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                    }
+                });
+
+        alert.show();
     }
 
     /**
