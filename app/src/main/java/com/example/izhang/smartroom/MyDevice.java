@@ -1,13 +1,24 @@
 package com.example.izhang.smartroom;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 
 /**
@@ -60,7 +71,17 @@ public class MyDevice extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_device, container, false);
+        View view = inflater.inflate(R.layout.fragment_my_device, container, false);
+
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.myDeviceFab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addNewDevice(getActivity());
+            }
+        });
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -100,5 +121,58 @@ public class MyDevice extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    /**
+     * Creates an alert dialog to ask user for device name and connection
+     *
+     * @param fragmentActivity
+     */
+    private void addNewDevice(final FragmentActivity fragmentActivity){
+        // Create action window to make lockcode
+        AlertDialog.Builder alert = new AlertDialog.Builder(fragmentActivity);
+        alert.setTitle("Add New Device");
+
+        LayoutInflater inflater = fragmentActivity.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.dialog_adddevice, null);
+        alert.setView(dialogView);
+
+        final EditText deviceName = (EditText) dialogView.findViewById(R.id.nameBox);
+        final ListView deviceList = (ListView) dialogView.findViewById(R.id.deviceList);
+
+        final ArrayList<String> deviceTypes = new ArrayList<>();
+        deviceTypes.add("Motion Sensor");
+        deviceTypes.add("Web Cam");
+        deviceTypes.add("Light Bulb");
+        deviceTypes.add("Speaker");
+        deviceTypes.add("Thermometer");
+
+        ArrayAdapter msgListAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_checked, deviceTypes);
+        deviceList.setAdapter(msgListAdapter);
+        deviceList.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+
+        deviceList.setItemChecked(0, true);
+
+        deviceList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                deviceList.setItemChecked(position, true);
+                deviceList.setSelection(position);
+            }
+        });
+
+        alert.setPositiveButton("Add Device", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                Toast.makeText(fragmentActivity, "Adding the device: " + deviceName.getText().toString() + " Type: " + deviceList.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        alert.setNegativeButton("Cancel",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                    }
+                });
+
+        alert.show();
     }
 }
