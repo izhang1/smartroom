@@ -58,7 +58,7 @@
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/spinner"
+                android:id="@+id/musicList"
                 android:spinnerMode="dropdown"
                 android:layout_marginTop="10dp" />
 
@@ -84,7 +84,7 @@
             android:weightSum="1">
 
             <Button
-                android:id="@+id/previousSongButton"
+                android:id="@+id/playSongButton"
                 android:layout_width="66dp"
                 android:layout_height="45dp"
                 android:layout_gravity="left|fill_vertical|fill_horizontal"
@@ -92,7 +92,7 @@
                 />
 
             <Button
-                android:id="@+id/playSongButton"
+                android:id="@+id/pauseSongButton"
                 android:layout_width="66dp"
                 android:layout_height="45dp"
                 android:layout_gravity="left|fill_vertical|fill_horizontal"
@@ -101,7 +101,7 @@
                 android:layout_centerHorizontal="true" />
 
             <Button
-                android:id="@+id/nextSongButton"
+                android:id="@+id/stopSongButton"
                 android:layout_width="47dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="right"
