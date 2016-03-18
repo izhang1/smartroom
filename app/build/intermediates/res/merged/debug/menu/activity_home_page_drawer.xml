@@ -3,6 +3,10 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/my_home"
+            android:icon="@drawable/ic_menu_share"
+            android:title="My Home" />
+        <item
             android:id="@+id/my_devices"
             android:icon="@drawable/ic_menu_camera"
             android:title="My Devices" />
@@ -11,13 +15,13 @@
             android:icon="@drawable/ic_menu_gallery"
             android:title="My Schedule" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/my_places"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:title="My Places" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/setting"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:title="Setting" />
     </group>
 
     <item android:title="Communicate">

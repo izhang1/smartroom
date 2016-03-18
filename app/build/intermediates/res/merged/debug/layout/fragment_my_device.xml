@@ -9,13 +9,13 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="495dp"
+        android:layout_height="500dp"
         android:layout_gravity="center">
 
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/myDeviceFab"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@android:drawable/ic_dialog_email"
             android:layout_marginLeft="@dimen/fab_margin"
@@ -23,7 +23,9 @@
             android:background="@android:color/darker_gray"
             app:backgroundTint="@android:color/darker_gray"
             android:layout_alignParentBottom="true"
-            android:layout_alignStart="@+id/switch2" />
+            android:layout_alignParentRight="true"
+            android:layout_alignStart="@+id/switch2"
+            android:layout_marginBottom="10dp" />
 
         <ImageView
             android:layout_width="wrap_content"
