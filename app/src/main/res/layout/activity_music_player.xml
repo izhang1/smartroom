@@ -89,29 +89,29 @@
                 android:layout_height="45dp"
                 android:layout_gravity="left|fill_vertical|fill_horizontal"
                 android:background="@drawable/play"
-                />
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="5dp" />
 
             <Button
-                android:id="@+id/pauseSongButton"
+                android:id="@+id/nextSongButton"
                 android:layout_width="66dp"
                 android:layout_height="45dp"
                 android:layout_gravity="left|fill_vertical|fill_horizontal"
-                android:background="@drawable/pause"
+                android:background="@drawable/next"
+                android:layout_marginRight="5dp"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true" />
 
             <Button
-                android:id="@+id/stopSongButton"
-                android:layout_width="47dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="right"
-                android:background="@drawable/stop"
-                android:gravity="right"
-                android:layout_weight="0.04"
+                android:id="@+id/prevSongButton"
+                android:layout_width="66dp"
+                android:layout_height="45dp"
+                android:layout_gravity="left|fill_vertical|fill_horizontal"
+                android:background="@drawable/prev"
                 android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:paddingRight="10dp"
-                android:layout_marginRight="10dp" />
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="5dp" />
 
         </RelativeLayout>
 
