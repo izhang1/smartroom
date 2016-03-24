@@ -97,6 +97,7 @@
     <declare-styleable name="ButtonBarLayout"><attr format="boolean" name="allowStacking"/></declare-styleable>
     <declare-styleable name="CollapsingAppBarLayout_LayoutParams"><attr name="layout_collapseMode"><enum name="none" value="0"/><enum name="pin" value="1"/><enum name="parallax" value="2"/></attr><attr format="float" name="layout_collapseParallaxMultiplier"/></declare-styleable>
     <declare-styleable name="CollapsingToolbarLayout"><attr format="dimension" name="expandedTitleMargin"/><attr format="dimension" name="expandedTitleMarginStart"/><attr format="dimension" name="expandedTitleMarginTop"/><attr format="dimension" name="expandedTitleMarginEnd"/><attr format="dimension" name="expandedTitleMarginBottom"/><attr format="reference" name="expandedTitleTextAppearance"/><attr format="reference" name="collapsedTitleTextAppearance"/><attr format="color" name="contentScrim"/><attr format="color" name="statusBarScrim"/><attr format="reference" name="toolbarId"/><attr name="collapsedTitleGravity"><flag name="top" value="0x30"/><flag name="bottom" value="0x50"/><flag name="left" value="0x03"/><flag name="right" value="0x05"/><flag name="center_vertical" value="0x10"/><flag name="fill_vertical" value="0x70"/><flag name="center_horizontal" value="0x01"/><flag name="center" value="0x11"/><flag name="start" value="0x00800003"/><flag name="end" value="0x00800005"/></attr><attr name="expandedTitleGravity"><flag name="top" value="0x30"/><flag name="bottom" value="0x50"/><flag name="left" value="0x03"/><flag name="right" value="0x05"/><flag name="center_vertical" value="0x10"/><flag name="fill_vertical" value="0x70"/><flag name="center_horizontal" value="0x01"/><flag name="center" value="0x11"/><flag name="start" value="0x00800003"/><flag name="end" value="0x00800005"/></attr><attr format="boolean" name="titleEnabled"/><attr name="title"/></declare-styleable>
+    <declare-styleable name="ColorPickerPreference"><attr format="boolean" name="alphaSlider"/><attr format="boolean" name="lightnessSlider"/><attr format="integer" name="density"/><attr format="integer" name="initialColor"/><attr format="enum" name="wheelType"><enum name="FLOWER" value="0"/><enum name="CIRCLE" value="1"/></attr><attr format="reference" name="lightnessSliderView"/><attr format="reference" name="alphaSliderView"/><attr format="reference|string" name="pickerTitle"/><attr format="reference|string" name="pickerButtonOk"/><attr format="reference|string" name="pickerButtonCancel"/></declare-styleable>
     <declare-styleable name="CompoundButton"><attr name="android:button"/><attr format="color" name="buttonTint"/><attr name="buttonTintMode"><enum name="src_over" value="3"/><enum name="src_in" value="5"/><enum name="src_atop" value="9"/><enum name="multiply" value="14"/><enum name="screen" value="15"/></attr></declare-styleable>
     <declare-styleable name="CoordinatorLayout"><attr format="reference" name="keylines"/><attr format="reference" name="statusBarBackground"/></declare-styleable>
     <declare-styleable name="CoordinatorLayout_LayoutParams"><attr name="android:layout_gravity"/><attr format="string" name="layout_behavior"/><attr format="reference" name="layout_anchor"/><attr format="integer" name="layout_keyline"/><attr name="layout_anchorGravity"><flag name="top" value="0x30"/><flag name="bottom" value="0x50"/><flag name="left" value="0x03"/><flag name="right" value="0x05"/><flag name="center_vertical" value="0x10"/><flag name="fill_vertical" value="0x70"/><flag name="center_horizontal" value="0x01"/><flag name="fill_horizontal" value="0x07"/><flag name="center" value="0x11"/><flag name="fill" value="0x77"/><flag name="clip_vertical" value="0x80"/><flag name="clip_horizontal" value="0x08"/><flag name="start" value="0x00800003"/><flag name="end" value="0x00800005"/></attr></declare-styleable>
@@ -196,6 +197,13 @@
     <dimen name="abc_text_size_title_material_toolbar">20dp</dimen>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="default_padding_side">10dp</dimen>
+    <dimen name="default_preview_height">40dp</dimen>
+    <dimen name="default_preview_image_height">36dp</dimen>
+    <dimen name="default_slider_bar_height">4dp</dimen>
+    <dimen name="default_slider_handler_radius">10dp</dimen>
+    <dimen name="default_slider_height">36dp</dimen>
+    <dimen name="default_slider_margin">4dp</dimen>
     <dimen name="design_appbar_elevation">4dp</dimen>
     <dimen name="design_fab_border_width">0.5dp</dimen>
     <dimen name="design_fab_content_size">24dp</dimen>
@@ -1268,6 +1276,14 @@
         <item name="metaButtonBarStyle">?android:attr/buttonBarStyle</item>
         <item name="metaButtonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>
     </style>
+    <style name="PickerEditText">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_margin">4dp</item>
+		<item name="android:imeOptions">actionNext</item>
+		<item name="android:singleLine">true</item>
+		<item name="android:textSize">22sp</item>
+	</style>
     <style name="Platform.AppCompat" parent="android:Theme">
         <item name="android:windowNoTitle">true</item>
 

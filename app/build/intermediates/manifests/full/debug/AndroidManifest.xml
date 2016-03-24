@@ -37,6 +37,8 @@
             android:name="com.example.izhang.smartroom.HomePage"
             android:label="@string/title_activity_home_page"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name="com.example.izhang.smartroom.MusicPlayer" />
+        <activity android:name="com.example.izhang.smartroom.LightDevice" />
     </application>
 
 </manifest>

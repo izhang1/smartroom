@@ -3,6 +3,7 @@ package com.example.izhang.smartroom;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -16,7 +17,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.flask.colorpicker.ColorPickerView;
+import com.flask.colorpicker.OnColorSelectedListener;
+import com.flask.colorpicker.builder.ColorPickerClickListener;
+import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 
 import java.util.ArrayList;
 
@@ -49,8 +56,6 @@ public class MyDevice extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment MyDevice.
      */
     // TODO: Rename and change types and number of parameters
@@ -71,13 +76,22 @@ public class MyDevice extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_my_device, container, false);
+        final View view = inflater.inflate(R.layout.fragment_my_device, container, false);
 
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.myDeviceFab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addNewDevice(getActivity());
+            }
+        });
+
+        final TextView light = (TextView) view.findViewById(R.id.lightDevice1Text);
+        light.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent lightDevice = new Intent(view.getContext(), LightDevice.class);
+                startActivity(lightDevice);
             }
         });
 
