@@ -95,6 +95,15 @@ public class MyDevice extends Fragment {
             }
         });
 
+        final TextView speaker1 = (TextView) view.findViewById(R.id.speakerDeviceText);
+        speaker1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent speakerDevice = new Intent(view.getContext(), MusicPlayer.class);
+                startActivity(speakerDevice);
+            }
+        });
+
         return view;
     }
 

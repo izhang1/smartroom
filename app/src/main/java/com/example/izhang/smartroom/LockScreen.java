@@ -1,14 +1,29 @@
 package com.example.izhang.smartroom;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RemoteViews;
+
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -66,6 +81,21 @@ public class LockScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_lock_screen);
+        Firebase.setAndroidContext(this);
+
+        Firebase myFirebaseRef = new Firebase("https://smartroom490.firebaseio.com");
+        myFirebaseRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.v("DataChange", "Data Changed");
+                createNotification();
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
 
         mVisible = true;
         mContentView = findViewById(R.id.fullscreen_content);
@@ -89,4 +119,24 @@ public class LockScreen extends AppCompatActivity {
 
 
     }
+
+    private void createNotification(){
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.house_icon)
+                        .setContentTitle("New Notification")
+                        .setContentText("Motion Sensor Detected");
+
+        Intent intent = new Intent(this, HomePage.class);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        stackBuilder.addParentStack(HomePage.class);
+        stackBuilder.addNextIntent(intent);
+        PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+        mBuilder.setContentIntent(pendingIntent);
+        NotificationManager NM = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        NM.notify(0, mBuilder.build());
+    }
+
+
+
 }

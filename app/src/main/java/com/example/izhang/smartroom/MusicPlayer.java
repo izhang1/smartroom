@@ -2,17 +2,28 @@ package com.example.izhang.smartroom;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MusicPlayer extends AppCompatActivity {
 
@@ -21,13 +32,41 @@ public class MusicPlayer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music_player);
 
+        setTitle("Music Player");
+
         final Spinner musicList = (Spinner) this.findViewById(R.id.musicList);
         final Button playButton = (Button) this.findViewById(R.id.playSongButton);
         Button prevButton = (Button) this.findViewById(R.id.prevSongButton);
         Button nextButton = (Button) this.findViewById(R.id.nextSongButton);
         final Button pauseButton = (Button) this.findViewById(R.id.pauseSongButton);
+        SeekBar seekBar = (SeekBar) this.findViewById(R.id.seekBar1);
 
-        ArrayList<String> songList = populateMusicList(musicList); // Populate list with songs from server
+        ArrayList<String> songList = populateMusicList(); // Populate list with songs from server
+        songList.add("Song 1");
+        songList.add("Song 2");
+        songList.add("Song 3");
+        songList.add("Song 4");
+
+        ArrayAdapter<String> songAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, songList);
+        musicList.setAdapter(songAdapter);
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                setVolumne(seekBar.getProgress());
+                Toast.makeText(getApplication(), "Progress: " + seekBar.getProgress(), Toast.LENGTH_LONG).show();
+            }
+        });
 
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,10 +138,31 @@ public class MusicPlayer extends AppCompatActivity {
      *     Returns list of songs stored locally on the pi in format:
      *       {“songs”:[‘song_1.mp3’, ‘song_2.mp3’, …]}
      *
-     * @param spinner
      * @return ArrayList of Songs
      */
-    public ArrayList<String> populateMusicList(Spinner spinner){
+    public ArrayList<String> populateMusicList(){
+
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "http://172.16.0.4:5050/song_library";
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        System.out.println("Response is: " + response.substring(0, 500));
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.err.println("That didn't work!");
+            }
+        });
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
+
         return new ArrayList<>();
     }
 
@@ -115,30 +175,33 @@ public class MusicPlayer extends AppCompatActivity {
      **/
     private void playSong(){
 
-        String url = "http://httpbin.org/html";
+        String url = "http://172.16.0.4:5050/start_song";
+        JSONObject jsonBody = new JSONObject();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
+        try{
+            jsonBody = new JSONObject("{\"song\":\"7 Years.mp3\"}");
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                (Request.Method.POST, url, jsonBody, new Response.Listener<JSONObject>() {
+
                     @Override
-                    public void onResponse(String response) {
-
-                        // Result handling
-                        System.out.println(response.substring(0,100));
-
+                    public void onResponse(JSONObject response) {
+                        System.out.println("Response: " + response.toString());
                     }
                 }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
 
-                // Error handling
-                System.out.println("Something went wrong!");
-                error.printStackTrace();
-
-            }
-        });
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO Auto-generated method stub
+                        error.printStackTrace();
+                    }
+                });
 
         // Add the request to the queue
-        Volley.newRequestQueue(this).add(stringRequest);
+        Volley.newRequestQueue(this).add(jsObjRequest);
 
     }
 
@@ -151,9 +214,9 @@ public class MusicPlayer extends AppCompatActivity {
      **/
     private void pauseSong(){
 
-        String url = "http://httpbin.org/html";
+        String url = "http://172.16.0.4:5050/pause_song";
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -188,30 +251,27 @@ public class MusicPlayer extends AppCompatActivity {
      **/
     private void prevSong(){
 
-        String url = "http://httpbin.org/html";
+        String url = "http://172.16.0.4:5050/prev_song";
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                (Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
+
                     @Override
-                    public void onResponse(String response) {
-
-                        // Result handling
-                        System.out.println(response.substring(0,100));
-
+                    public void onResponse(JSONObject response) {
+                        System.out.println("Response: " + response.toString());
                     }
                 }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
 
-                // Error handling
-                System.out.println("Something went wrong!");
-                error.printStackTrace();
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO Auto-generated method stub
+                        error.printStackTrace();
+                    }
+                });
 
-            }
-        });
 
         // Add the request to the queue
-        Volley.newRequestQueue(this).add(stringRequest);
+        Volley.newRequestQueue(this).add(jsObjRequest);
 
     }
 
@@ -225,30 +285,69 @@ public class MusicPlayer extends AppCompatActivity {
      **/
     private void nextSong(){
 
-        String url = "http://httpbin.org/html";
+        String url = "http://172.16.0.4:5050/next_song";
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                (Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
+
                     @Override
-                    public void onResponse(String response) {
-
-                        // Result handling
-                        System.out.println(response.substring(0,100));
-
+                    public void onResponse(JSONObject response) {
+                        System.out.println("Response: " + response.toString());
                     }
                 }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
 
-                // Error handling
-                System.out.println("Something went wrong!");
-                error.printStackTrace();
-
-            }
-        });
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO Auto-generated method stub
+                        error.printStackTrace();
+                    }
+                });
 
         // Add the request to the queue
-        Volley.newRequestQueue(this).add(stringRequest);
+        Volley.newRequestQueue(this).add(jsObjRequest);
+
+    }
+
+    /**
+     *  Call the volumee REST api
+     *
+     *   Server: /next_song
+     *    POST:  no input necessary
+     *
+     **/
+    private void setVolumne(int volumne){
+
+        String url = "http://172.16.0.4:5050/set_volume";
+        double v2 = volumne / 100.0;
+        String volConverted = Double.toString(v2);
+        System.out.println("Converted: " + volConverted);
+
+        JSONObject jsonBody = new JSONObject();
+
+        try{
+            jsonBody = new JSONObject("{\"volume\":\" "+ volConverted  +"\"}");
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                (Request.Method.POST, url, jsonBody, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        System.out.println("Response: " + response.toString());
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO Auto-generated method stub
+                        error.printStackTrace();
+                    }
+                });
+
+        // Add the request to the queue
+        Volley.newRequestQueue(this).add(jsObjRequest);
 
     }
 }

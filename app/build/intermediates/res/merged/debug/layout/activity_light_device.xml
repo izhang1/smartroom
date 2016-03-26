@@ -45,7 +45,8 @@
         android:text="Change Color"
         android:id="@+id/changeColorButton"
         android:layout_alignBottom="@+id/currentColorText"
-        android:layout_alignEnd="@+id/seekBar" />
+        android:layout_alignEnd="@+id/seekBar"
+        android:layout_alignParentTop="true" />
 
     <TextView
         android:layout_width="wrap_content"

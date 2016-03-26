@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:2:1-38:12
+ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:2:1-40:12
 	xmlns:android
 		ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:2:11-69
 	package
@@ -25,8 +25,12 @@ uses-permission#android.permission.READ_CONTACTS
 ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:8:5-72
 	android:name
 		ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:8:22-69
+uses-permission#android.permission.INTERNET
+ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:9:5-67
+	android:name
+		ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:9:22-64
 application
-ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:10:5-36:19
+ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:12:5-38:19
 MERGED from [com.android.support:appcompat-v7:23.1.1] /Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/AndroidManifest.xml:22:5-20
 MERGED from [com.android.support:support-v4:23.1.1] /Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:22:5-20
 MERGED from [com.android.support:support-v4:23.1.1] /Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:22:5-20
@@ -40,57 +44,57 @@ MERGED from [com.github.QuadFlask:colorpicker:0.0.10] /Users/izhang/Desktop/Prog
 MERGED from [com.android.support:appcompat-v7:23.1.1] /Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/AndroidManifest.xml:22:5-20
 MERGED from [com.android.support:support-v4:23.1.1] /Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:22:5-20
 	android:supportsRtl
-		ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:14:9-35
+		ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:16:9-35
 	android:label
-		ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:13:9-41
+		ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:15:9-41
 	android:allowBackup
-		ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:11:9-35
+		ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:13:9-35
 	android:icon
-		ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:12:9-43
+		ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:14:9-43
 	android:theme
-		ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:15:9-40
+		ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:17:9-40
 activity#com.example.izhang.smartroom.Login
-ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:16:9-18:60
+ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:18:9-20:60
 	android:label
-		ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:18:13-57
+		ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:20:13-57
 	android:name
-		ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:17:13-34
+		ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:19:13-34
 activity#com.example.izhang.smartroom.LockScreen
-ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:19:9-29:20
+ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:21:9-31:20
 	android:label
-		ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:22:13-38
+		ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:24:13-38
 	android:configChanges
-		ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:21:13-74
+		ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:23:13-74
 	android:theme
-		ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:23:13-51
+		ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:25:13-51
 	android:name
-		ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:20:13-39
+		ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:22:13-39
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
-ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:24:13-28:29
+ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:26:13-30:29
 action#android.intent.action.MAIN
-ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:25:17-69
+ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:27:17-69
 	android:name
-		ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:25:25-66
+		ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:27:25-66
 category#android.intent.category.LAUNCHER
-ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:27:17-77
+ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:29:17-77
 	android:name
-		ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:27:27-74
+		ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:29:27-74
 activity#com.example.izhang.smartroom.HomePage
-ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:30:9-33:59
+ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:32:9-35:59
 	android:label
-		ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:32:13-61
+		ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:34:13-61
 	android:theme
-		ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:33:13-56
+		ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:35:13-56
 	android:name
-		ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:31:13-37
+		ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:33:13-37
 activity#com.example.izhang.smartroom.MusicPlayer
-ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:34:9-49
+ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:36:9-49
 	android:name
-		ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:34:19-46
+		ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:36:19-46
 activity#com.example.izhang.smartroom.LightDevice
-ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:35:9-58
+ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:37:9-58
 	android:name
-		ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:35:19-46
+		ADDED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml:37:19-46
 uses-sdk
 INJECTED from /Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 MERGED from [com.android.support:appcompat-v7:23.1.1] /Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/AndroidManifest.xml:20:5-43
