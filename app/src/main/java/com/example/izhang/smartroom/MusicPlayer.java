@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.SeekBar;
@@ -17,38 +18,80 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class MusicPlayer extends AppCompatActivity {
+
+    Firebase firebaseRef;
+    ArrayList<String> songList;
+    Spinner musicList;
+
+    Button pauseButton;
+    Button playButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music_player);
+        Firebase.setAndroidContext(this);
+
+        firebaseRef = new Firebase("https://smartroom490.firebaseio.com/library/songs");
 
         setTitle("Music Player");
 
-        final Spinner musicList = (Spinner) this.findViewById(R.id.musicList);
-        final Button playButton = (Button) this.findViewById(R.id.playSongButton);
+        musicList = (Spinner) this.findViewById(R.id.musicList);
+        playButton = (Button) this.findViewById(R.id.playSongButton);
         Button prevButton = (Button) this.findViewById(R.id.prevSongButton);
         Button nextButton = (Button) this.findViewById(R.id.nextSongButton);
-        final Button pauseButton = (Button) this.findViewById(R.id.pauseSongButton);
+        pauseButton = (Button) this.findViewById(R.id.pauseSongButton);
         SeekBar seekBar = (SeekBar) this.findViewById(R.id.seekBar1);
 
-        ArrayList<String> songList = populateMusicList(); // Populate list with songs from server
-        songList.add("Song 1");
-        songList.add("Song 2");
-        songList.add("Song 3");
-        songList.add("Song 4");
+        songList = new ArrayList<>(); // Populate list with songs from server
 
-        ArrayAdapter<String> songAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, songList);
-        musicList.setAdapter(songAdapter);
+
+        firebaseRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterator iter = dataSnapshot.getChildren().iterator();
+                while (iter.hasNext()) {
+                    populateMusicList();
+                    DataSnapshot songObj = (DataSnapshot)iter.next();
+                    songList.add(songObj.getValue().toString());
+                }
+
+                ArrayAdapter<String> songAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, songList);
+                musicList.setAdapter(songAdapter);
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+
+        musicList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                startSong(songList.get(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -64,6 +107,8 @@ public class MusicPlayer extends AppCompatActivity {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 setVolumne(seekBar.getProgress());
+                playButton.setVisibility(View.INVISIBLE);
+                pauseButton.setVisibility(View.VISIBLE);
                 Toast.makeText(getApplication(), "Progress: " + seekBar.getProgress(), Toast.LENGTH_LONG).show();
             }
         });
@@ -142,7 +187,6 @@ public class MusicPlayer extends AppCompatActivity {
      */
     public ArrayList<String> populateMusicList(){
 
-
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = "http://172.16.0.4:5050/song_library";
 
@@ -162,6 +206,7 @@ public class MusicPlayer extends AppCompatActivity {
         });
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
+
 
         return new ArrayList<>();
     }
@@ -204,6 +249,49 @@ public class MusicPlayer extends AppCompatActivity {
         Volley.newRequestQueue(this).add(jsObjRequest);
 
     }
+
+    /**
+     *  Call the play_song REST api
+     *
+     *  /start_song
+     *  POST: input JSON: {“song”:”<song_name>”}
+     *  <song_name> = name of song as string
+     *
+     **/
+    private void startSong(String songName){
+
+        System.out.println("Start Song");
+
+        String url = "http://172.16.0.4:5050/start_song";
+        JSONObject jsonBody = new JSONObject();
+
+        try{
+            jsonBody = new JSONObject("{\"song\":\""+ songName +"\"}");
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                (Request.Method.POST, url, jsonBody, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        System.out.println("Response: " + response.toString());
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO Auto-generated method stub
+                        error.printStackTrace();
+                    }
+                });
+
+        // Add the request to the queue
+        Volley.newRequestQueue(this).add(jsObjRequest);
+
+    }
+
 
     /**
      *  Call the pause_song REST api
@@ -250,29 +338,14 @@ public class MusicPlayer extends AppCompatActivity {
      *
      **/
     private void prevSong(){
+        System.out.println("Prev Song");
+        int selectedItem = musicList.getSelectedItemPosition();
+        if(selectedItem > 0) {
+            musicList.setSelection(selectedItem - 1);
+        }
 
-        String url = "http://172.16.0.4:5050/prev_song";
-
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                (Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
-
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        System.out.println("Response: " + response.toString());
-                    }
-                }, new Response.ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // TODO Auto-generated method stub
-                        error.printStackTrace();
-                    }
-                });
-
-
-        // Add the request to the queue
-        Volley.newRequestQueue(this).add(jsObjRequest);
-
+        pauseButton.setVisibility(View.VISIBLE);
+        playButton.setVisibility(View.INVISIBLE);
     }
 
 
@@ -285,26 +358,14 @@ public class MusicPlayer extends AppCompatActivity {
      **/
     private void nextSong(){
 
-        String url = "http://172.16.0.4:5050/next_song";
+        System.out.println("Next Song");
+        int selectedItem = musicList.getSelectedItemPosition();
+        if(selectedItem + 1 <= songList.size()) {
+            musicList.setSelection(selectedItem + 1);
+        }
 
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                (Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
-
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        System.out.println("Response: " + response.toString());
-                    }
-                }, new Response.ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // TODO Auto-generated method stub
-                        error.printStackTrace();
-                    }
-                });
-
-        // Add the request to the queue
-        Volley.newRequestQueue(this).add(jsObjRequest);
+        pauseButton.setVisibility(View.VISIBLE);
+        playButton.setVisibility(View.INVISIBLE);
 
     }
 

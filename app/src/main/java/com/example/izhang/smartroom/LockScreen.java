@@ -83,7 +83,7 @@ public class LockScreen extends AppCompatActivity {
         setContentView(R.layout.activity_lock_screen);
         Firebase.setAndroidContext(this);
 
-        Firebase myFirebaseRef = new Firebase("https://smartroom490.firebaseio.com");
+        Firebase myFirebaseRef = new Firebase("https://smartroom490.firebaseio.com/motion_sensor");
         myFirebaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
