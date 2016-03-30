@@ -8,6 +8,7 @@ import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.ActionBar;
@@ -88,7 +89,13 @@ public class LockScreen extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.v("DataChange", "Data Changed");
-                createNotification();
+                SharedPreferences prefs = getSharedPreferences("pref", MODE_PRIVATE);
+                Boolean isMute = prefs.getBoolean("mute", false);
+                if(isMute != null) {
+                    if(isMute == false) {
+                        createNotification();
+                    }
+                }
             }
 
             @Override
