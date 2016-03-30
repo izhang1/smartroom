@@ -1,12 +1,18 @@
 package com.example.izhang.smartroom;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Switch;
+
+import java.util.Map;
+import java.util.Set;
 
 
 /**
@@ -64,7 +70,36 @@ public class Setting extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_setting, container, false);
+        View view = inflater.inflate(R.layout.fragment_setting, container, false);
+
+        SharedPreferences prefs = getActivity().getSharedPreferences("pref", getActivity().MODE_PRIVATE);
+        Boolean isMute = prefs.getBoolean("mute", false);
+        final Switch switch1 = (Switch) view.findViewById(R.id.muteSwitch);
+
+        if(isMute != null){
+            if(isMute == false){
+                switch1.setChecked(false);
+            }else{
+                switch1.setChecked(true);
+            }
+        }
+
+        switch1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(switch1.isChecked()){
+                    SharedPreferences.Editor editor = getActivity().getSharedPreferences("pref", getActivity().MODE_PRIVATE).edit();
+                    editor.putBoolean("mute", true);
+                    editor.commit();
+                }else{
+                    SharedPreferences.Editor editor = getActivity().getSharedPreferences("pref", getActivity().MODE_PRIVATE).edit();
+                    editor.putBoolean("mute",false);
+                    editor.commit();
+                }
+            }
+        });
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
