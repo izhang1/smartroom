@@ -70,7 +70,7 @@ public class MusicPlayer extends AppCompatActivity {
                     songList.add(songObj.getValue().toString());
                 }
 
-                ArrayAdapter<String> songAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, songList);
+                ArrayAdapter<String> songAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.spinner_item, songList);
                 musicList.setAdapter(songAdapter);
 
             }
@@ -188,7 +188,7 @@ public class MusicPlayer extends AppCompatActivity {
     public ArrayList<String> populateMusicList(){
 
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "http://172.16.0.4:5050/song_library";
+        String url = "http://172.16.0.2:5050/song_library";
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -220,7 +220,7 @@ public class MusicPlayer extends AppCompatActivity {
      **/
     private void playSong(){
 
-        String url = "http://172.16.0.4:5050/start_song";
+        String url = "http://172.16.0.2:5050/start_song";
         JSONObject jsonBody = new JSONObject();
 
         try{
@@ -262,7 +262,7 @@ public class MusicPlayer extends AppCompatActivity {
 
         System.out.println("Start Song");
 
-        String url = "http://172.16.0.4:5050/start_song";
+        String url = "http://172.16.0.2:5050/start_song";
         JSONObject jsonBody = new JSONObject();
 
         try{
@@ -302,7 +302,7 @@ public class MusicPlayer extends AppCompatActivity {
      **/
     private void pauseSong(){
 
-        String url = "http://172.16.0.4:5050/pause_song";
+        String url = "http://172.16.0.2:5050/pause_song";
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
@@ -378,7 +378,7 @@ public class MusicPlayer extends AppCompatActivity {
      **/
     private void setVolumne(int volumne){
 
-        String url = "http://172.16.0.4:5050/set_volume";
+        String url = "http://172.16.0.2:5050/set_volume";
         double v2 = volumne / 100.0;
         String volConverted = Double.toString(v2);
         System.out.println("Converted: " + volConverted);
