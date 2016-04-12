@@ -22,12 +22,14 @@
     <SeekBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/seekBar"
+        android:id="@+id/lightBrightnessSeek"
         android:layout_alignParentStart="true"
         android:background="#9e9d9d"
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/brightnessTitle"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"
+        android:indeterminate="false"
+        android:max="100" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -45,7 +47,7 @@
         android:text="Change Color"
         android:id="@+id/changeColorButton"
         android:layout_alignBottom="@+id/currentColorText"
-        android:layout_alignEnd="@+id/seekBar"
+        android:layout_alignEnd="@+id/lightBrightnessSeek"
         android:layout_alignParentTop="true" />
 
     <TextView
@@ -65,7 +67,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Percentage"
         android:id="@+id/percentageText"
-        android:layout_below="@+id/seekBar"
+        android:layout_below="@+id/lightBrightnessSeek"
         android:layout_alignParentStart="true" />
 
 </RelativeLayout>

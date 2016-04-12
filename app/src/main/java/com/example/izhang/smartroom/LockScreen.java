@@ -124,7 +124,6 @@ public class LockScreen extends AppCompatActivity {
             }
         });
 
-
     }
 
     private void createNotification(){

@@ -24,7 +24,7 @@
             app:backgroundTint="@android:color/darker_gray"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_alignStart="@+id/switch2"
+            android:layout_alignStart="@+id/micSwitch"
             android:layout_marginBottom="10dp" />
 
         <ImageView
@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="On/Off"
-            android:id="@+id/switch2"
+            android:id="@+id/micSwitch"
             android:checked="false"
             android:layout_alignBottom="@+id/textView2"
             android:layout_alignParentEnd="true"
@@ -88,10 +88,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="On/Off"
-            android:id="@+id/switch3"
+            android:id="@+id/lightSwitch"
             android:checked="false"
             android:layout_alignTop="@+id/lightDevice1Text"
-            android:layout_alignStart="@+id/switch2"
+            android:layout_alignStart="@+id/micSwitch"
             android:layout_alignBottom="@+id/lightDevice1Text" />
 
         <ImageView
@@ -123,7 +123,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="On/Off"
-            android:id="@+id/switch4"
+            android:id="@+id/speakerSwitch"
             android:checked="false"
             android:layout_alignBottom="@+id/speakerDeviceText"
             android:layout_alignParentEnd="true"

@@ -6,21 +6,56 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.flask.colorpicker.ColorPickerView;
 import com.flask.colorpicker.OnColorSelectedListener;
 import com.flask.colorpicker.builder.ColorPickerClickListener;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class LightDevice extends AppCompatActivity {
     Context context;
+    private TextView currentColor;
+
+    private String port = "http://172.16.0.4:5050";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_light_device);
         context = this;
+
+        currentColor = (TextView) findViewById(R.id.currentColorText);
+
+        SeekBar seekBar = (SeekBar) this.findViewById(R.id.lightBrightnessSeek);
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                setBrightness(seekBar.getProgress());
+                Toast.makeText(getApplication(), "Progress: " + seekBar.getProgress(), Toast.LENGTH_LONG).show();
+            }
+        });
 
         Button changeColor = (Button) findViewById(R.id.changeColorButton);
         changeColor.setOnClickListener(new View.OnClickListener() {
@@ -40,7 +75,15 @@ public class LightDevice extends AppCompatActivity {
                         .setPositiveButton("ok", new ColorPickerClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
-                                Toast.makeText(context, "Color Selected: " + Integer.toHexString(selectedColor), Toast.LENGTH_LONG).show();
+                                currentColor.setBackgroundColor(selectedColor);
+                                String colorString = Integer.toHexString(selectedColor);
+                                int color = (int)Long.parseLong(colorString, 16);
+                                int r = (selectedColor >> 16) & 0xFF;
+                                int g = (color >> 8) & 0xFF;
+                                int b = (color >> 0) & 0xFF;
+
+                                System.out.println("RGB: " + r + ", " + g + ". " + b);
+                                setRGB(r, g, b);
                             }
                         })
                         .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
@@ -52,6 +95,88 @@ public class LightDevice extends AppCompatActivity {
                         .show();
             }
         });
+
+    }
+
+    /**
+     *  Call the volumee REST api
+     *
+     *   Server: /next_song
+     *    POST:  no input necessary
+     *
+     **/
+    private void setRGB(int r, int g, int b){
+
+        String url = port + "/set_rgb";
+
+        JSONObject jsonBody = new JSONObject();
+
+        try{
+            jsonBody = new JSONObject("{\"color\":\"rgb:"+  r + "," + g + "," + b +"\"}");
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                (Request.Method.PUT, url, jsonBody, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO Auto-generated method stub
+                        error.printStackTrace();
+                    }
+                });
+
+        // Add the request to the queue
+        Volley.newRequestQueue(this).add(jsObjRequest);
+
+    }
+
+    /**
+     *  Call the volumee REST api
+     *
+     *   Server: /next_song
+     *    POST:  no input necessary
+     *
+     **/
+    private void setBrightness(int brightnessVal){
+
+        double value = (double) brightnessVal/ 100.00;
+
+        String url = port + "/set_degree_of_luminescence";
+
+        JSONObject jsonBody = new JSONObject();
+
+        try{
+            jsonBody = new JSONObject("{\"brightness\":\""+ value + "\"}");
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                (Request.Method.PUT, url, jsonBody, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO Auto-generated method stub
+                        error.printStackTrace();
+                    }
+                });
+
+        // Add the request to the queue
+        Volley.newRequestQueue(this).add(jsObjRequest);
 
     }
 }

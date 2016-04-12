@@ -40,6 +40,9 @@ public class MusicPlayer extends AppCompatActivity {
     Button pauseButton;
     Button playButton;
 
+    private String port = "http://172.16.0.4:5050";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,7 +109,7 @@ public class MusicPlayer extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                setVolumne(seekBar.getProgress());
+                setVolume(seekBar.getProgress());
                 playButton.setVisibility(View.INVISIBLE);
                 pauseButton.setVisibility(View.VISIBLE);
                 Toast.makeText(getApplication(), "Progress: " + seekBar.getProgress(), Toast.LENGTH_LONG).show();
@@ -188,7 +191,7 @@ public class MusicPlayer extends AppCompatActivity {
     public ArrayList<String> populateMusicList(){
 
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "http://172.16.0.2:5050/song_library";
+        String url = port + "/song_library";
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -219,18 +222,11 @@ public class MusicPlayer extends AppCompatActivity {
      *
      **/
     private void playSong(){
-
-        String url = "http://172.16.0.2:5050/start_song";
+        String url = port + "/play_song";
         JSONObject jsonBody = new JSONObject();
 
-        try{
-            jsonBody = new JSONObject("{\"song\":\"7 Years.mp3\"}");
-        }catch(JSONException e){
-            e.printStackTrace();
-        }
-
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                (Request.Method.POST, url, jsonBody, new Response.Listener<JSONObject>() {
+                (Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {
@@ -262,7 +258,7 @@ public class MusicPlayer extends AppCompatActivity {
 
         System.out.println("Start Song");
 
-        String url = "http://172.16.0.2:5050/start_song";
+        String url = port + "/start_song";
         JSONObject jsonBody = new JSONObject();
 
         try{
@@ -302,7 +298,7 @@ public class MusicPlayer extends AppCompatActivity {
      **/
     private void pauseSong(){
 
-        String url = "http://172.16.0.2:5050/pause_song";
+        String url = port + "/pause_song";
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
@@ -376,10 +372,10 @@ public class MusicPlayer extends AppCompatActivity {
      *    POST:  no input necessary
      *
      **/
-    private void setVolumne(int volumne){
+    private void setVolume(int volume){
 
-        String url = "http://172.16.0.2:5050/set_volume";
-        double v2 = volumne / 100.0;
+        String url = port + "/set_volume";
+        double v2 = volume / 100.0;
         String volConverted = Double.toString(v2);
         System.out.println("Converted: " + volConverted);
 

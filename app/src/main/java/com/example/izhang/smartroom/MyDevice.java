@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -17,9 +18,15 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.flask.colorpicker.ColorPickerView;
 import com.flask.colorpicker.OnColorSelectedListener;
 import com.flask.colorpicker.builder.ColorPickerClickListener;
@@ -45,6 +52,8 @@ public class MyDevice extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private String port = "http://172.16.0.4:5050";
 
     private OnFragmentInteractionListener mListener;
 
@@ -104,7 +113,61 @@ public class MyDevice extends Fragment {
             }
         });
 
+        final Switch lightSwitch = (Switch) view.findViewById(R.id.lightSwitch);
+        SharedPreferences prefs = getActivity().getSharedPreferences("pref", getActivity().MODE_PRIVATE);
+        boolean lightisOn = prefs.getBoolean("lightSwitch", false);
+        if(lightisOn){
+            lightSwitch.setChecked(true);
+        }else{
+            lightSwitch.setChecked(false);
+        }
+
+        lightSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(lightSwitch.isChecked()){
+                    SharedPreferences.Editor editor = getActivity().getSharedPreferences("pref", getActivity().MODE_PRIVATE).edit();
+                    editor.putBoolean("lightSwitch", true);
+                    editor.commit();
+
+                    toggleLightPower(view.getContext());
+
+                }else{
+                    SharedPreferences.Editor editor = getActivity().getSharedPreferences("pref", getActivity().MODE_PRIVATE).edit();
+                    editor.putBoolean("lightSwitch",false);
+                    editor.commit();
+                }
+            }
+        });
+
         return view;
+    }
+
+    private void toggleLightPower(Context context){
+        String url = port + "/toggle_power";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        // Result handling
+                        System.out.println(response.substring(0,100));
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                // Error handling
+                System.out.println("Something went wrong!");
+                error.printStackTrace();
+
+            }
+        });
+
+        // Add the request to the queue
+        Volley.newRequestQueue(context).add(stringRequest);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

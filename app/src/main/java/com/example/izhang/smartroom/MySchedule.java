@@ -16,7 +16,17 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -39,6 +49,10 @@ public class MySchedule extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+
+    private String port = "http://172.16.0.4:5050";
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -89,6 +103,7 @@ public class MySchedule extends Fragment {
 
 
 
+
         return view;
     }
 
@@ -130,13 +145,15 @@ public class MySchedule extends Fragment {
         final View dialogView = inflater.inflate(R.layout.dialog_addschedule, null);
         alert.setView(dialogView);
 
-        Spinner chooseDevice = (Spinner) dialogView.findViewById(R.id.deviceSpinner);
-        Spinner chooseActivity = (Spinner) dialogView.findViewById(R.id.deviceActivity);
+        final TextView scheName = (TextView) dialogView.findViewById(R.id.nameBox);
+        Spinner chooseDevice = (Spinner) dialogView.findViewById(R.id.chooseDeviceSpinner);
+        Spinner chooseActivity = (Spinner) dialogView.findViewById(R.id.chooseActivitySpinner);
+        Spinner chooseWhen = (Spinner) dialogView.findViewById(R.id.chooseWhenSpinner);
 
+
+        // Devices
         ArrayList deviceList = new ArrayList();
-        deviceList.add("Motion Sensor 1");
         deviceList.add("Speaker 1");
-        deviceList.add("Light 1");
 
         ArrayAdapter deviceListAdapter = new ArrayAdapter(dialogView.getContext(),
                 android.R.layout.simple_spinner_item, deviceList);
@@ -144,10 +161,9 @@ public class MySchedule extends Fragment {
         chooseDevice.setAdapter(deviceListAdapter);
 
 
+        // Activities
         ArrayList deviceActivities = new ArrayList();
-        deviceActivities.add("Motion Sensor Do Something");
-        deviceActivities.add("Motion Sensor Do Something 1");
-        deviceActivities.add("Motion Sensor Do Something 2");
+        deviceActivities.add("Start Playing Music");
 
         ArrayAdapter deviceActivityAdapter = new ArrayAdapter(dialogView.getContext(),
                 android.R.layout.simple_spinner_item, deviceActivities);
@@ -155,9 +171,20 @@ public class MySchedule extends Fragment {
         chooseActivity.setAdapter(deviceActivityAdapter);
 
 
+        // When
+        ArrayList deviceWhen = new ArrayList();
+        deviceActivities.add("Motion Sensor Detected");
+
+        ArrayAdapter deviceWhenAdatper = new ArrayAdapter(dialogView.getContext(),
+                android.R.layout.simple_spinner_item, deviceActivities);
+
+        chooseWhen.setAdapter(deviceActivityAdapter);
+
+
         alert.setPositiveButton("Schedule It", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 Toast.makeText(fragmentActivity, "Scheduled", Toast.LENGTH_LONG).show();
+                setSchedule(scheName.getText().toString(), "start_song");
             }
         });
 
@@ -169,6 +196,45 @@ public class MySchedule extends Fragment {
 
         alert.show();
     }
+
+
+    /**
+     * New Schedule: url/save_ms_profile?name=<PROFILE_NAME>&action=<ACTION>
+     * Send to this along with the JSON data for the ACTION
+     * @param name
+     * @param action
+     */
+    private void setSchedule(String name, String action){
+        String url = port + "/save_ms_profile?name=" + name + "&action=" + action;
+
+        JSONObject jsonBody = new JSONObject();
+
+        try{
+            jsonBody = new JSONObject("{\"song\":\""+ "7 Years.mp3" +"\"}");
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                (Request.Method.POST, url, jsonBody, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        System.out.println("Response: " + response.toString());
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO Auto-generated method stub
+                        error.printStackTrace();
+                    }
+                });
+
+        // Add the request to the queue
+        Volley.newRequestQueue(getContext()).add(jsObjRequest);
+
+    }
+
 
     /**
      * This interface must be implemented by activities that contain this
