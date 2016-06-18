@@ -130,8 +130,7 @@ public class LockScreen extends AppCompatActivity {
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.house_icon)
-                        .setContentTitle("New Notification")
-                        .setContentText("Motion Sensor Detected");
+                        .setContentTitle("Motion Sensor Detected");
 
         Intent intent = new Intent(this, HomePage.class);
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);

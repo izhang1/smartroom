@@ -302,6 +302,7 @@
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
     <string name="status_bar_notification_info_overflow">999+</string>
+    <string name="title_activity_cube_device">CubeDevice</string>
     <string name="title_activity_home_page">HomePage</string>
     <string name="title_activity_lock_screen">LockScreen</string>
     <string name="title_activity_login">Login</string>

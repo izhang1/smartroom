@@ -20,7 +20,7 @@ import android.view.MenuItem;
 public class HomePage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MyDevice.OnFragmentInteractionListener,
                     MySchedule.OnFragmentInteractionListener, MyPlaces.OnFragmentInteractionListener,Setting.OnFragmentInteractionListener,
-                    MyHome.OnFragmentInteractionListener
+                    MyHome.OnFragmentInteractionListener, MyTimeSchedule.OnFragmentInteractionListener
 {
 
     @Override
@@ -29,7 +29,6 @@ public class HomePage extends AppCompatActivity
         setContentView(R.layout.activity_home_page);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -75,10 +74,6 @@ public class HomePage extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -97,17 +92,12 @@ public class HomePage extends AppCompatActivity
         }else if (id == R.id.my_devices) {
             Log.v("HomePage", "MyDevice");
             fragment = new MyDevice();
-
-        } else if (id == R.id.my_schedule) {
+        } else if(id == R.id.time_schedule){
+            fragment = new MyTimeSchedule();
+        } else if (id == R.id.motion_schedule) {
             fragment = new MySchedule();
-        } else if (id == R.id.my_places) {
-            fragment = new MyPlaces();
         } else if (id == R.id.setting) {
             fragment = new Setting();
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
         }else{
             fragment = new MyDevice();
         }

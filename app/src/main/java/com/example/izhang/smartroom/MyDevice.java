@@ -27,10 +27,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.flask.colorpicker.ColorPickerView;
-import com.flask.colorpicker.OnColorSelectedListener;
-import com.flask.colorpicker.builder.ColorPickerClickListener;
-import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 
 import java.util.ArrayList;
 
@@ -53,7 +49,7 @@ public class MyDevice extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private String port = "http://172.16.0.4:5050";
+    private String port = "http://172.16.0.6:5050";
 
     private OnFragmentInteractionListener mListener;
 
@@ -92,6 +88,15 @@ public class MyDevice extends Fragment {
             @Override
             public void onClick(View v) {
                 addNewDevice(getActivity());
+            }
+        });
+
+        final TextView cube1 = (TextView) view.findViewById(R.id.cubeDevice1);
+        cube1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent cubeDevice = new Intent(view.getContext(), CubeDevice.class);
+                startActivity(cubeDevice);
             }
         });
 
@@ -249,7 +254,7 @@ public class MyDevice extends Fragment {
 
         alert.setPositiveButton("Add Device", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                Toast.makeText(fragmentActivity, "Adding the device: " + deviceName.getText().toString() + " Type: " + deviceList.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(fragmentActivity, "Adding the device: " + deviceName.getText().toString() + " Type: ", Toast.LENGTH_LONG).show();
             }
         });
 

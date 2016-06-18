@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.izhang.smartroom.CubeDevice"
+    tools:showIn="@layout/activity_cube_device">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Cube Sensor Statistics"
+        android:id="@+id/cubeSensorTitle"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="30dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Temperature: "
+        android:id="@+id/tempTitle"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/cubeSensorTitle"
+        android:layout_alignStart="@+id/cubeSensorTitle" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Humidity: "
+        android:id="@+id/humidityTitle"
+        android:layout_below="@+id/tempTitle"
+        android:layout_alignStart="@+id/tempTitle"
+        android:layout_marginTop="20dp"
+        android:layout_alignEnd="@+id/tempTitle" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Light: "
+        android:id="@+id/lightTitle"
+        android:layout_below="@+id/humidityTitle"
+        android:layout_alignStart="@+id/humidityTitle"
+        android:layout_marginTop="20dp"
+        android:layout_alignEnd="@+id/humidityTitle" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="TempValue"
+        android:id="@+id/tempValue"
+        android:layout_alignTop="@+id/tempTitle"
+        android:layout_toEndOf="@+id/tempTitle" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="HumValue"
+        android:id="@+id/humValue"
+        android:layout_above="@+id/lightTitle"
+        android:layout_alignStart="@+id/tempValue" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="LightValue"
+        android:id="@+id/lightValue"
+        android:layout_alignTop="@+id/lightTitle"
+        android:layout_toEndOf="@+id/lightTitle" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Pressure:"
+        android:id="@+id/pressTitle"
+        android:layout_below="@+id/lightTitle"
+        android:layout_alignStart="@+id/lightTitle"
+        android:layout_marginTop="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="PressValue"
+        android:id="@+id/pressureValue"
+        android:layout_alignTop="@+id/pressTitle"
+        android:layout_toEndOf="@+id/lightTitle" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="VOC: "
+        android:id="@+id/textView"
+        android:layout_below="@+id/pressTitle"
+        android:layout_alignStart="@+id/pressTitle"
+        android:layout_marginTop="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="VOCValue"
+        android:id="@+id/vocValue"
+        android:layout_alignTop="@+id/textView"
+        android:layout_alignStart="@+id/pressureValue" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Noise DB:"
+        android:id="@+id/textView9"
+        android:layout_below="@+id/textView"
+        android:layout_alignStart="@+id/textView"
+        android:layout_marginTop="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="NoiseValue"
+        android:id="@+id/noiseVal"
+        android:layout_alignTop="@+id/textView9"
+        android:layout_alignStart="@+id/vocValue" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Battery: "
+        android:layout_below="@+id/textView9"
+        android:layout_alignStart="@+id/textView9"
+        android:layout_marginTop="20dp"
+        android:id="@+id/textView11" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="BattValue"
+        android:id="@+id/battValue"
+        android:layout_alignTop="@+id/textView11"
+        android:layout_alignStart="@+id/noiseVal" />
+
+</RelativeLayout>

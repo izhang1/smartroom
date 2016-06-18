@@ -27,7 +27,7 @@ public class LightDevice extends AppCompatActivity {
     Context context;
     private TextView currentColor;
 
-    private String port = "http://172.16.0.4:5050";
+    private String port = "http://172.16.0.6:5050";
 
 
     @Override
@@ -35,6 +35,33 @@ public class LightDevice extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_light_device);
         context = this;
+
+
+        final Button pulseButton = (Button) findViewById(R.id.pulseButton);
+        final Button breathButton = (Button) findViewById(R.id.breathButton);
+        final Button cycleButton = (Button) findViewById(R.id.cycleButton);
+
+
+        pulseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pulseBulb();
+            }
+        });
+
+        breathButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                breathBulb();
+            }
+        });
+
+        cycleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cycleBulb();
+            }
+        });
 
         currentColor = (TextView) findViewById(R.id.currentColorText);
 
@@ -84,6 +111,7 @@ public class LightDevice extends AppCompatActivity {
 
                                 System.out.println("RGB: " + r + ", " + g + ". " + b);
                                 setRGB(r, g, b);
+                                setBrightness(10);
                             }
                         })
                         .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
@@ -139,15 +167,16 @@ public class LightDevice extends AppCompatActivity {
     }
 
     /**
-     *  Call the volumee REST api
+     *  Call the set brightness API
      *
-     *   Server: /next_song
+     *   Server: /set_degree_of_luminescence
      *    POST:  no input necessary
      *
      **/
     private void setBrightness(int brightnessVal){
 
         double value = (double) brightnessVal/ 100.00;
+        if(value == 0) value = .01;
 
         String url = port + "/set_degree_of_luminescence";
 
@@ -179,4 +208,102 @@ public class LightDevice extends AppCompatActivity {
         Volley.newRequestQueue(this).add(jsObjRequest);
 
     }
+
+
+    /**
+     *  Call the set_pulse REST api
+     *
+     *   Server: /set_pulse
+     *    POST:  no input necessary
+     *
+     **/
+    private void pulseBulb(){
+        String url = port + "/set_pulse";
+        JSONObject jsonBody = new JSONObject();
+
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                (Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        System.out.println("Response: " + response.toString());
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO Auto-generated method stub
+                        error.printStackTrace();
+                    }
+                });
+
+        // Add the request to the queue
+        Volley.newRequestQueue(this).add(jsObjRequest);
+    }
+
+
+    /**
+     *  Call the set_breathe REST api
+     *
+     *   Server: /set_breathe
+     *    POST:  no input necessary
+     *
+     **/
+    private void breathBulb(){
+        String url = port + "/set_breathe";
+
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                (Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        System.out.println("Response: " + response.toString());
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO Auto-generated method stub
+                        error.printStackTrace();
+                    }
+                });
+
+        // Add the request to the queue
+        Volley.newRequestQueue(this).add(jsObjRequest);
+    }
+
+
+    /**
+     *  Call the set_cycle REST api
+     *
+     *   Server: /set_cycle
+     *    POST:  no input necessary
+     *
+     **/
+    private void cycleBulb(){
+        String url = port + "/set_cycle";
+
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                (Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        System.out.println("Response: " + response.toString());
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO Auto-generated method stub
+                        error.printStackTrace();
+                    }
+                });
+
+        // Add the request to the queue
+        Volley.newRequestQueue(this).add(jsObjRequest);
+    }
+
+
+
+
 }

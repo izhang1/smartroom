@@ -90,8 +90,11 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
                 attemptLogin();
                 Intent mainActivity = new Intent(getApplicationContext(), HomePage.class);
                 startActivity(mainActivity);
+                finish();
             }
         });
+
+
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);

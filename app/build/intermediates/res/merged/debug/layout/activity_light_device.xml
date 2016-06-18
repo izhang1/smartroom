@@ -70,4 +70,37 @@
         android:layout_below="@+id/lightBrightnessSeek"
         android:layout_alignParentStart="true" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cycle"
+        android:id="@+id/cycleButton"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/changeColorButton"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pulse"
+        android:id="@+id/pulseButton"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_below="@+id/cycleButton"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Breathe"
+        android:id="@+id/breathButton"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_below="@+id/pulseButton"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
 </RelativeLayout>

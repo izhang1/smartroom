@@ -73,8 +73,8 @@ public class MyHome extends Fragment {
 
         ListView lv = (ListView) view.findViewById(R.id.myHomeListView);
         ArrayList<String> homedata = new ArrayList();
-        homedata.add("Number of Devices :   5");
-        homedata.add("NUmber of Schedules:   3");
+        homedata.add("Number of Devices :   4");
+        homedata.add("Number of Schedules:   3");
         ArrayAdapter<String> homedataAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, homedata);
         lv.setAdapter(homedataAdapter);
 

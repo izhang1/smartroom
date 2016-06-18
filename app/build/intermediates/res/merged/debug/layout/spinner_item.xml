@@ -7,5 +7,8 @@
     android:textSize="20sp"
     android:gravity="left"
     android:textColor="#525252"
-    android:padding="5dip"
-    android:textAlignment="center" />
+    android:textAlignment="center"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:id="@+id/textview"
+    android:text="Hello" />

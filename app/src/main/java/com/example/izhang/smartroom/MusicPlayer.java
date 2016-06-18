@@ -40,7 +40,7 @@ public class MusicPlayer extends AppCompatActivity {
     Button pauseButton;
     Button playButton;
 
-    private String port = "http://172.16.0.4:5050";
+    private String port = "http://172.16.0.6:5050";
 
 
     @Override
@@ -63,12 +63,11 @@ public class MusicPlayer extends AppCompatActivity {
         songList = new ArrayList<>(); // Populate list with songs from server
 
 
-        firebaseRef.addValueEventListener(new ValueEventListener() {
+        firebaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Iterator iter = dataSnapshot.getChildren().iterator();
                 while (iter.hasNext()) {
-                    populateMusicList();
                     DataSnapshot songObj = (DataSnapshot)iter.next();
                     songList.add(songObj.getValue().toString());
                 }

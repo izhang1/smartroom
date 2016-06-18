@@ -1,19 +1,19 @@
 [
     {
-        "merged": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/res/merged/debug/layout/dialog_adddevice.xml",
-        "source": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/res/layout/dialog_adddevice.xml"
-    },
-    {
         "merged": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/res/merged/debug/layout/abc_screen_simple.xml",
         "source": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_screen_simple.xml"
     },
     {
-        "merged": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/res/merged/debug/layout/notification_media_action.xml",
-        "source": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_media_action.xml"
+        "merged": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/res/merged/debug/layout/dialog_adddevice.xml",
+        "source": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/res/layout/dialog_adddevice.xml"
     },
     {
         "merged": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/res/merged/debug/layout/fragment_my_home.xml",
         "source": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/res/layout/fragment_my_home.xml"
+    },
+    {
+        "merged": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/res/merged/debug/layout/notification_media_action.xml",
+        "source": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_media_action.xml"
     },
     {
         "merged": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/res/merged/debug/layout/design_layout_snackbar_include.xml",
@@ -22,6 +22,10 @@
     {
         "merged": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/res/merged/debug/layout/fragment_setting.xml",
         "source": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/res/layout/fragment_setting.xml"
+    },
+    {
+        "merged": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/res/merged/debug/layout/activity_cube_device.xml",
+        "source": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/res/layout/activity_cube_device.xml"
     },
     {
         "merged": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/res/merged/debug/layout/abc_action_menu_item_layout.xml",
@@ -56,10 +60,6 @@
         "source": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/res/layout/fragment_my_schedule.xml"
     },
     {
-        "merged": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/res/merged/debug/layout/dialog_addschedule.xml",
-        "source": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/res/layout/dialog_addschedule.xml"
-    },
-    {
         "merged": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/res/merged/debug/layout/design_menu_item_action_area.xml",
         "source": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_menu_item_action_area.xml"
     },
@@ -80,28 +80,32 @@
         "source": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_popup_menu_item_layout.xml"
     },
     {
-        "merged": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/res/merged/debug/layout/fragment_my_device.xml",
-        "source": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/res/layout/fragment_my_device.xml"
-    },
-    {
         "merged": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/res/merged/debug/layout/abc_select_dialog_material.xml",
         "source": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_select_dialog_material.xml"
+    },
+    {
+        "merged": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/res/merged/debug/layout/fragment_my_device.xml",
+        "source": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/res/layout/fragment_my_device.xml"
     },
     {
         "merged": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/res/merged/debug/layout/color_selector.xml",
         "source": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/exploded-aar/com.github.QuadFlask/colorpicker/0.0.10/res/layout/color_selector.xml"
     },
     {
+        "merged": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/res/merged/debug/layout/list_schedule.xml",
+        "source": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/res/layout/list_schedule.xml"
+    },
+    {
         "merged": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/res/merged/debug/layout/picker_edit.xml",
         "source": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/exploded-aar/com.github.QuadFlask/colorpicker/0.0.10/res/layout/picker_edit.xml"
     },
     {
-        "merged": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/res/merged/debug/layout/abc_list_menu_item_icon.xml",
-        "source": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_list_menu_item_icon.xml"
-    },
-    {
         "merged": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/res/merged/debug/layout/notification_template_lines.xml",
         "source": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_template_lines.xml"
+    },
+    {
+        "merged": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/res/merged/debug/layout/abc_list_menu_item_icon.xml",
+        "source": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_list_menu_item_icon.xml"
     },
     {
         "merged": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/res/merged/debug/layout/abc_action_mode_close_item_material.xml",
@@ -126,6 +130,10 @@
     {
         "merged": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/res/merged/debug/layout/design_layout_snackbar.xml",
         "source": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_layout_snackbar.xml"
+    },
+    {
+        "merged": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/res/merged/debug/layout/content_cube_device.xml",
+        "source": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/res/layout/content_cube_device.xml"
     },
     {
         "merged": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/res/merged/debug/layout/notification_template_part_chronometer.xml",
@@ -192,12 +200,12 @@
         "source": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_action_menu_layout.xml"
     },
     {
-        "merged": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/res/merged/debug/layout/abc_list_menu_item_layout.xml",
-        "source": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_list_menu_item_layout.xml"
-    },
-    {
         "merged": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/res/merged/debug/layout/design_navigation_menu_item.xml",
         "source": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_navigation_menu_item.xml"
+    },
+    {
+        "merged": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/res/merged/debug/layout/abc_list_menu_item_layout.xml",
+        "source": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_list_menu_item_layout.xml"
     },
     {
         "merged": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/res/merged/debug/layout/select_dialog_item_material.xml",
@@ -232,12 +240,12 @@
         "source": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_media_cancel_action.xml"
     },
     {
-        "merged": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/res/merged/debug/layout/activity_music_player.xml",
-        "source": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/res/layout/activity_music_player.xml"
-    },
-    {
         "merged": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/res/merged/debug/layout/select_dialog_singlechoice_material.xml",
         "source": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/select_dialog_singlechoice_material.xml"
+    },
+    {
+        "merged": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/res/merged/debug/layout/activity_music_player.xml",
+        "source": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/res/layout/activity_music_player.xml"
     },
     {
         "merged": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/res/merged/debug/layout/abc_list_menu_item_checkbox.xml",
@@ -246,6 +254,10 @@
     {
         "merged": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/res/merged/debug/layout/design_navigation_menu.xml",
         "source": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_navigation_menu.xml"
+    },
+    {
+        "merged": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/res/merged/debug/layout/fragment_my_time_schedule.xml",
+        "source": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/res/layout/fragment_my_time_schedule.xml"
     },
     {
         "merged": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/res/merged/debug/layout/design_layout_tab_text.xml",
@@ -260,12 +272,20 @@
         "source": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/select_dialog_multichoice_material.xml"
     },
     {
+        "merged": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/res/merged/debug/layout/dialog_addtimeschedule.xml",
+        "source": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/res/layout/dialog_addtimeschedule.xml"
+    },
+    {
         "merged": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/res/merged/debug/layout/color_preview.xml",
         "source": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/exploded-aar/com.github.QuadFlask/colorpicker/0.0.10/res/layout/color_preview.xml"
     },
     {
         "merged": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/res/merged/debug/layout/app_bar_home_page.xml",
         "source": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/res/layout/app_bar_home_page.xml"
+    },
+    {
+        "merged": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/res/merged/debug/layout/dialog_addmotionschedule.xml",
+        "source": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/src/main/res/layout/dialog_addmotionschedule.xml"
     },
     {
         "merged": "/Users/izhang/Desktop/Programming Work/SmartRoom/app/build/intermediates/res/merged/debug/layout/abc_activity_chooser_view.xml",

@@ -3,17 +3,19 @@ package com.example.izhang.smartroom;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.database.DataSetObserver;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -23,13 +25,20 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Objects;
 
 
 /**
@@ -46,12 +55,15 @@ public class MySchedule extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    ListView scheduleList = null;
+    Spinner chooseSong;
+    String songName = "";
+    MotionListAdapter listAdapter = null;
+    Firebase firebaseRef;
+    TinyDB internalDbRef = null;
+    private ArrayList<Schedule> scheList = null;
 
-
-    private String port = "http://172.16.0.4:5050";
+    private String port = "http://172.16.0.6:5050";
 
 
     private OnFragmentInteractionListener mListener;
@@ -81,10 +93,7 @@ public class MySchedule extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
@@ -92,6 +101,11 @@ public class MySchedule extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_my_schedule, container, false);
+
+        internalDbRef = new TinyDB(getContext());
+
+        firebaseRef = new Firebase("https://smartroom490.firebaseio.com/library/songs");
+
 
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.myScheduleFab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -102,7 +116,49 @@ public class MySchedule extends Fragment {
         });
 
 
+        scheduleList = (ListView) view.findViewById(R.id.motionListView);
 
+        scheduleList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                // Create action window to make lockcode
+                AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+                alert.setTitle("Delete Motion Schedule?");
+
+                Log.v("MySchedule", "Sup Dog");
+
+
+                alert.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        Log.v("MySchedule", scheList.get(position).getScheduleName());
+                        deleteSchedule(scheList.get(position).getScheduleName());
+                    }
+                });
+
+
+                alert.setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                            }
+                        });
+
+                alert.show();
+            }
+        });
+
+
+        scheList = internalDbRef.getListObject("motionScheList", Schedule.class);
+        if(scheList == null) {
+            scheList = new ArrayList<>();
+            scheList.add(new Schedule("Alarm 1", "Doing something", "Light Bulb 1", ""));
+            scheList.add(new Schedule("Alarm 2", "Doing something", "Light Bulb 1", ""));
+            scheList.add(new Schedule("Alarm 3", "Doing something", "Light Bulb 1", ""));
+        }
+
+
+        listAdapter = new MotionListAdapter(getContext(), scheList);
+
+        scheduleList.setAdapter(listAdapter);
 
         return view;
     }
@@ -126,6 +182,13 @@ public class MySchedule extends Fragment {
     }
 
     @Override
+    public void onPause(){
+        super.onPause();
+        internalDbRef.remove("motionScheList");
+        internalDbRef.putListObject("motionScheList", (ArrayList<Object>)(Object) scheList);
+    }
+
+    @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
@@ -142,49 +205,128 @@ public class MySchedule extends Fragment {
         alert.setTitle("Add New Schedule");
 
         LayoutInflater inflater = fragmentActivity.getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.dialog_addschedule, null);
+        final View dialogView = inflater.inflate(R.layout.dialog_addmotionschedule, null);
         alert.setView(dialogView);
 
         final TextView scheName = (TextView) dialogView.findViewById(R.id.nameBox);
-        Spinner chooseDevice = (Spinner) dialogView.findViewById(R.id.chooseDeviceSpinner);
-        Spinner chooseActivity = (Spinner) dialogView.findViewById(R.id.chooseActivitySpinner);
-        Spinner chooseWhen = (Spinner) dialogView.findViewById(R.id.chooseWhenSpinner);
+        final Spinner chooseDevice = (Spinner) dialogView.findViewById(R.id.chooseDeviceSpinner);
+        final Spinner chooseActivity = (Spinner) dialogView.findViewById(R.id.chooseActivitySpinner);
+        chooseSong = (Spinner) dialogView.findViewById(R.id.chooseSong);
+        final TextView chooseSongTitle = (TextView) dialogView.findViewById(R.id.chooseSongTitle);
+
+
+        final ArrayList<String> songList = new ArrayList<>();
+
+        // Activities
+        final ArrayList speakerActivities = new ArrayList();
+        speakerActivities.add("Start Music");
+        speakerActivities.add("Stop Music");
+
+        final ArrayList lightActivities = new ArrayList();
+        lightActivities.add("Pulse");
+        lightActivities.add("Breathe");
+        lightActivities.add("Cycle");
+        lightActivities.add("Turn On");
 
 
         // Devices
-        ArrayList deviceList = new ArrayList();
+        final ArrayList deviceList = new ArrayList();
         deviceList.add("Speaker 1");
+        deviceList.add("Lightbulb 1");
+
+        //
+        firebaseRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterator iter = dataSnapshot.getChildren().iterator();
+                while (iter.hasNext()) {
+                    DataSnapshot songObj = (DataSnapshot)iter.next();
+                    songList.add(songObj.getValue().toString());
+                }
+
+                ArrayAdapter<String> songAdapter = new ArrayAdapter<String>(getContext(), R.layout.support_simple_spinner_dropdown_item, songList);
+                chooseSong.setAdapter(songAdapter);
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+
+        chooseActivity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position == 0 && deviceList.get(chooseDevice.getSelectedItemPosition()).equals("Speaker 1")){
+                    chooseSong.setVisibility(View.VISIBLE);
+                    chooseSongTitle.setVisibility(View.VISIBLE);
+                }else{
+                    chooseSong.setVisibility(View.INVISIBLE);
+                    chooseSongTitle.setVisibility(View.INVISIBLE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+
 
         ArrayAdapter deviceListAdapter = new ArrayAdapter(dialogView.getContext(),
-                android.R.layout.simple_spinner_item, deviceList);
+                R.layout.support_simple_spinner_dropdown_item, deviceList);
 
         chooseDevice.setAdapter(deviceListAdapter);
 
+        chooseDevice.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position == 0){
+                    ArrayAdapter deviceActivityAdapter = new ArrayAdapter(dialogView.getContext(),
+                            R.layout.support_simple_spinner_dropdown_item, speakerActivities);
+                    chooseActivity.setAdapter(deviceActivityAdapter);
+                }else{
+                    ArrayAdapter deviceActivityAdapter = new ArrayAdapter(dialogView.getContext(),
+                            R.layout.support_simple_spinner_dropdown_item, lightActivities);
+                    chooseActivity.setAdapter(deviceActivityAdapter);
+                }
+            }
 
-        // Activities
-        ArrayList deviceActivities = new ArrayList();
-        deviceActivities.add("Start Playing Music");
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
-        ArrayAdapter deviceActivityAdapter = new ArrayAdapter(dialogView.getContext(),
-                android.R.layout.simple_spinner_item, deviceActivities);
-
-        chooseActivity.setAdapter(deviceActivityAdapter);
-
-
-        // When
-        ArrayList deviceWhen = new ArrayList();
-        deviceActivities.add("Motion Sensor Detected");
-
-        ArrayAdapter deviceWhenAdatper = new ArrayAdapter(dialogView.getContext(),
-                android.R.layout.simple_spinner_item, deviceActivities);
-
-        chooseWhen.setAdapter(deviceActivityAdapter);
+            }
+        });
 
 
         alert.setPositiveButton("Schedule It", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 Toast.makeText(fragmentActivity, "Scheduled", Toast.LENGTH_LONG).show();
-                setSchedule(scheName.getText().toString(), "start_song");
+                String sche = scheName.getText().toString();
+                String device = deviceList.get(chooseDevice.getSelectedItemPosition()).toString();
+                String activity = "";
+                if(device.equals("Speaker 1")){
+                    activity = speakerActivities.get(chooseActivity.getSelectedItemPosition()).toString();
+                }else{
+                    activity = lightActivities.get(chooseActivity.getSelectedItemPosition()).toString();
+                }
+
+                songName = songList.get(chooseSong.getSelectedItemPosition());
+
+
+                Log.v("MySchedule", activity);
+
+                activity = getRequestName(activity);
+
+                Log.v("MySchedule", activity);
+
+                Schedule schedule = new Schedule(sche, activity, device, "");
+                scheList.add(schedule);
+                listAdapter.notifyDataSetChanged();
+                setSchedule(sche, activity, "-1", "-1");
             }
         });
 
@@ -199,20 +341,32 @@ public class MySchedule extends Fragment {
 
 
     /**
-     * New Schedule: url/save_ms_profile?name=<PROFILE_NAME>&action=<ACTION>
+     * New Schedule: /schedule_event?name=<name>&action=<action>&hour=<hour>&min=<min>
+     * POST: input JSON depending on the action chosen
      * Send to this along with the JSON data for the ACTION
+     *
      * @param name
-     * @param action
+     * @param activity
+     * @param hour
+     * @param minutes
+     *
      */
-    private void setSchedule(String name, String action){
-        String url = port + "/save_ms_profile?name=" + name + "&action=" + action;
+    private void setSchedule(String name, String activity, String hour, String minutes){
+
+
+        String url = port + "/save_ms_profile?name=" + name + "&action=" + activity + "&start_hour=" + hour + "&start_min=" + minutes + "&end_hour=" + minutes + "&end_min=" + minutes;
+
+        Log.v("MySchedule", url);
 
         JSONObject jsonBody = new JSONObject();
 
-        try{
-            jsonBody = new JSONObject("{\"song\":\""+ "7 Years.mp3" +"\"}");
-        }catch(JSONException e){
-            e.printStackTrace();
+        if(activity.equals("start_song")) {
+            Log.v("SongName", songName);
+            try {
+                jsonBody = new JSONObject("{\"song\":\"" + songName + "\"}");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
 
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
@@ -232,7 +386,60 @@ public class MySchedule extends Fragment {
 
         // Add the request to the queue
         Volley.newRequestQueue(getContext()).add(jsObjRequest);
+    }
 
+
+    private void deleteSchedule(String name){
+
+        for(int i = 0; i < scheList.size(); i++) {
+            if(scheList.get(i).getScheduleName().equals(name)){
+                scheList.remove(i);
+                listAdapter.notifyDataSetChanged();
+            }
+        }
+
+        String url = port + "/delete_ms_profile?name=" + name;
+
+        JSONObject jsonBody = new JSONObject();
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                (Request.Method.POST, url, jsonBody, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        System.out.println("Response: " + response.toString());
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO Auto-generated method stub
+                        error.printStackTrace();
+                    }
+                });
+
+        // Add the request to the queue
+        Volley.newRequestQueue(getContext()).add(jsObjRequest);
+
+    }
+
+
+    private String getRequestName(String activity){
+        switch (activity){
+            case "Pulse":
+                return "set_pulse";
+            case "Breathe":
+                return "set_breathe";
+            case "Cycle":
+                return "set_cycle";
+            case "Start Music":
+                return "start_song";
+            case "Stop Music":
+                return "stop_song";
+            case "Turn On":
+                return "toggle_power";
+
+        }
+
+        return activity;
     }
 
 

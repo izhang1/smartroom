@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp">
+
+        <AutoCompleteTextView
+            android:id="@+id/nameBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint= "New Schedule"
+            android:inputType="text"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:paddingEnd="5dp"
+            android:paddingStart="5dp" />
+
+    </android.support.design.widget.TextInputLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Choose Device"
+        android:id="@+id/textView3"
+        android:textStyle="bold"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/chooseDeviceSpinner"
+        android:layout_gravity="center_horizontal"
+        android:spinnerMode="dropdown"
+        android:paddingTop="5dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Choose Activity"
+        android:id="@+id/textView4"
+        android:textStyle="bold"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/chooseActivitySpinner"
+        android:layout_gravity="center_horizontal"
+        android:spinnerMode="dropdown"
+        android:layout_marginTop="5dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Start Time"
+        android:id="@+id/textView7"
+        android:textStyle="bold"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="time"
+        android:ems="10"
+        android:id="@+id/timeHour"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:hint="8 Hour (0 - 23)"
+        android:maxLength="2" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="time"
+        android:ems="10"
+        android:id="@+id/timeMinutes"
+        android:hint="30 Minute (0 - 59)"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:maxLength="2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Choose Song"
+        android:id="@+id/textView8"
+        android:textStyle="bold"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/chooseSong"
+        android:spinnerMode="dropdown"
+        android:layout_marginTop="5dp" />
+
+</LinearLayout>

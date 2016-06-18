@@ -8,17 +8,20 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.INTERNET" />
 
-
     <application
+        android:screenOrientation="portrait"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/house_icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:screenOrientation="portrait"
             android:name=".Login"
             android:label="@string/title_activity_login" />
         <activity
+
+            android:screenOrientation="portrait"
             android:name=".LockScreen"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="SmartRoom"
@@ -30,11 +33,21 @@
             </intent-filter>
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".HomePage"
             android:label="@string/title_activity_home_page"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".MusicPlayer" />
-        <activity android:name=".LightDevice"></activity>
+        <activity android:name=".MusicPlayer"
+            android:screenOrientation="portrait"
+            ></activity>
+        <activity android:name=".LightDevice"
+            android:screenOrientation="portrait"
+            ></activity>
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".CubeDevice"
+            android:label="@string/title_activity_cube_device"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
